@@ -1,5 +1,7 @@
-package android.capstone.littlelemon
+package android.capstone.littlelemon.screens
 
+import android.capstone.littlelemon.R
+import android.capstone.littlelemon.home
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
