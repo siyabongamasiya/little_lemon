@@ -21,7 +21,7 @@ fun Navigation(navController: NavHostController,context : Context){
     if (loggedin){
         startdestination = home.route
     }else {
-        startdestination = profile.route
+        startdestination = onBoarding.route
     }
 
     NavHost(navController = navController, startDestination = startdestination){
@@ -31,11 +31,11 @@ fun Navigation(navController: NavHostController,context : Context){
         }
 
         composable(home.route){
-            Home()
+            Home(navController)
         }
 
         composable(profile.route){
-            Profile()
+            Profile(navController)
         }
     }
 }

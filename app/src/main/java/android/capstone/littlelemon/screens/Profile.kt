@@ -1,5 +1,7 @@
 package android.capstone.littlelemon.screens
 
+import android.capstone.littlelemon.onBoarding
+import android.capstone.littlelemon.utils.AppFunctions
 import android.content.Context
 import android.media.tv.TvContract.Channels.Logo
 import androidx.compose.foundation.background
@@ -31,32 +33,32 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
-@Preview(showBackground = true)
+
 @Composable
-fun Profile(){
+fun Profile(navHostController: NavHostController){
     Column(
         modifier = Modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally){
         
-        Header(withImage = false)
-        Details()
+        Header(withImage = false,null)
+        Details(navHostController)
 
     }
 
 }
 
-@Preview
 @Composable
-fun Details(){
+fun Details(navHostController: NavHostController){
     Box(modifier = Modifier.fillMaxSize()
         .background(Color.White)) {
         val context = LocalContext.current
         val sharedPreferences = context.getSharedPreferences("loggin", Context.MODE_PRIVATE)
         val firstname = sharedPreferences.getString("firstname","firstname")
         val lastname = sharedPreferences.getString("lastname","lastname")
-        val email = sharedPreferences.getString("firstname","email")
+        val email = sharedPreferences.getString("email","email")
 
         Column(modifier = Modifier
             .padding(20.dp)
@@ -81,9 +83,12 @@ fun Details(){
         Button(
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14)),
             modifier = Modifier.fillMaxWidth()
-                .padding(bottom = 50.dp)
+                .padding(bottom = 50.dp, start = 20.dp, end = 20.dp)
                 .align(Alignment.BottomEnd),
-            onClick = { /*TODO*/ }) {
+            onClick = {
+                AppFunctions.logout(context)
+                navHostController.navigate(onBoarding.route)
+            }) {
             Text(text = "Logout")
         }
     }
